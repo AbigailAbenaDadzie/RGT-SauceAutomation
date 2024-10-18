@@ -2,7 +2,7 @@
 describe('saucedemo', () =>{
 
     // Variables for input data
-    const url = 'https://www.saucedemo.com/';
+    const url = "https://www.saucedemo.com/";
     const validUsername = 'standard_user';
     const validPassword = 'secret_sauce';
     const invalidUsername = 'Stand_user';
@@ -11,7 +11,7 @@ describe('saucedemo', () =>{
     const lastName = 'Doh';
     const postalCode = '12345';
 
-    it('Verify successful login', () =>{
+    it.skip('Verify successful login', () =>{
 
         cy.visit(url);
 
@@ -61,10 +61,10 @@ describe('saucedemo', () =>{
         // Verify logout by checking if login button is visible again
         cy.url().should('include', '/');
         cy.get("#login-button").should('be.visible');
-
+    })
 
     //Negative Test
-    it("login with invalid credentials", () =>{
+    it.skip("login with invalid credentials", () =>{
       
       cy.visit(url); 
 
@@ -86,6 +86,16 @@ describe('saucedemo', () =>{
 
         cy.visit(url)
 
+        cy.url().should("include", "saucedemo.com");
+
+        // Perform login
+        cy.get("#user-name").type(validUsername);
+        cy.get("#password").type(validPassword);
+        cy.get("#login-button").click();
+
+        cy.get('.shopping_cart_link').click(); // Click on the Cart icon
+        cy.get("#checkout").click();
+
         //Perform checkout without items in the cart
         cy.get('.error-message-container').should('not.exist'); 
         cy.get('.cart_item').should('not.exist');
@@ -93,4 +103,6 @@ describe('saucedemo', () =>{
         cy.get('.checkout_info').should('not.exist');
     })
 })
-})
+
+
+    

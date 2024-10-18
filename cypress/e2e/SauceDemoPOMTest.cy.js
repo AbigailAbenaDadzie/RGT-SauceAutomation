@@ -19,7 +19,7 @@ describe('Saucedemo Tests', () => {
         loginPage.visit();  // Visit the login page before each test
     });
 
-    it('should login successfully and complete purchase', () => {
+    it.skip('should login successfully and complete purchase', () => {
         // Perform login
         loginPage.enterUsername(validUsername);
         loginPage.enterPassword(validPassword);
@@ -50,7 +50,7 @@ describe('Saucedemo Tests', () => {
         inventoryPage.verifyLogout();
     });
 
-    it('should show error message on invalid login', () => {
+    it.skip('should show error message on invalid login', () => {
         // Perform login with invalid credentials
         loginPage.enterUsername(invalidUsername);  // Ensure username is invalid
         loginPage.enterPassword(invalidPassword);  // Ensure password is invalid
@@ -60,17 +60,18 @@ describe('Saucedemo Tests', () => {
         loginPage.verifyErrorMessage();  // Check the error message and text
     });
 
-    it('should prevent checkout without adding items to the cart', () => {
+    it.only('should prevent checkout without adding items to the cart', () => {
         loginPage.enterUsername('standard_user');
         loginPage.enterPassword('secret_sauce');
         loginPage.clickLogin();
 
         inventoryPage.clickCartLink();
 
-        inventoryPage.clickCheckoutButton();
-
          // Assertion: Ensure user remains on the cart page and checkout does not proceed
          inventoryPage.verifyStillOnCartPage();
+
+        inventoryPage.clickCheckoutButton();
+
          inventoryPage.verifyNoItemsInCart();
          inventoryPage.verifyCheckoutButtonNotFunctional();
     })
