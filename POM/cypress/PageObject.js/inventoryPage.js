@@ -47,6 +47,19 @@ class InventoryPage {
         cy.get(this.cartLink).click();
     }
 
+    verifyStillOnCartPage() {
+        cy.url().should('eq', 'https://www.saucedemo.com/cart.html');  // Ensure we are on the cart page
+    }
+
+    verifyNoItemsInCart() {
+        cy.get('.cart_item').should('not.exist');  // Check that no items are in the cart
+    }
+
+    verifyCheckoutButtonNotFunctional() {
+        cy.get('.checkout_info').should('not.exist');  // Ensure checkout form is not accessible
+    }
+
+
     clickCheckoutButton() {
         cy.get(this.checkoutButton).click();
     }

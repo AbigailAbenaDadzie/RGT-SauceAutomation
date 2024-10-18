@@ -59,4 +59,20 @@ describe('Saucedemo Tests', () => {
         // Verify the error message is displayed correctly
         loginPage.verifyErrorMessage();  // Check the error message and text
     });
+
+    it('should prevent checkout without adding items to the cart', () => {
+        loginPage.enterUsername('standard_user');
+        loginPage.enterPassword('secret_sauce');
+        loginPage.clickLogin();
+
+        inventoryPage.clickCartLink();
+
+        inventoryPage.clickCheckoutButton();
+
+         // Assertion: Ensure user remains on the cart page and checkout does not proceed
+         inventoryPage.verifyStillOnCartPage();
+         inventoryPage.verifyNoItemsInCart();
+         inventoryPage.verifyCheckoutButtonNotFunctional();
+    })
+
 });

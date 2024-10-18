@@ -78,5 +78,19 @@ describe('saucedemo', () =>{
       cy.get('.error-message-container.error')
         .should('contain.text', 'Epic sadface: Username and password do not match any user in this service');
     })
+
+
+
+    //Negative Test
+    it("Checkout without adding item(s) to cart", () =>{
+
+        cy.visit(url)
+
+        //Perform checkout without items in the cart
+        cy.get('.error-message-container').should('not.exist'); 
+        cy.get('.cart_item').should('not.exist');
+
+        cy.get('.checkout_info').should('not.exist');
+    })
 })
 })
